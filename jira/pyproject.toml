@@ -1,0 +1,21 @@
+[project]
+name = "jira-cli"
+version = "0.1.0"
+description = "CLI for self-hosted Jira (jiraent.staples.com) — reads plus gated writes"
+requires-python = ">=3.10"
+dependencies = [
+    "httpx>=0.27.0",
+    "python-dotenv>=1.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jira_tool"]
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true

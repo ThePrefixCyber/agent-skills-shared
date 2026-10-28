@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# jira — CLI for self-hosted Jira. No MCP server involved.
+#
+# Resolve symlinks before locating the project: this script is symlinked into
+# ~/.local/bin, and BASH_SOURCE there points at the symlink, not the real file.
+set -euo pipefail
+src="${BASH_SOURCE[0]}"
+while [ -L "$src" ]; do
+  dir="$(cd -P "$(dirname "$src")" && pwd)"
+  src="$(readlink "$src")"
+  [[ "$src" != /* ]] && src="$dir/$src"
+done
+here="$(cd -P "$(dirname "$src")/.." && pwd)"
+exec uv run --directory "$here" python -m jira_tool.cli "$@"
